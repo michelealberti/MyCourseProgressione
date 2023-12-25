@@ -1,0 +1,70 @@
+﻿@model CourseDetailViewModel
+
+<section class="course-info">
+    <div class="row">
+        <div class="col-md-9">
+            <h1>@Model.Title</h1>
+        </div>
+        <div>
+            <h2>@Model.Description</h2>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <img src="@Model.ImagePath" width="150" />
+    </div>
+    <div class="Col-md-2 rating" title="@Model.Rating">
+        @for (int i = 1; i < 5; i++)
+        {
+            if (@Model.Rating >= i)
+            {
+                <i class="fa fa-star" aria-hidden="true"></i>
+            }
+            else if (@Model.Rating > i - 1)
+            {
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+            }
+            else
+            {
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            }
+        }
+    </div>
+    <div class="col-md-2">
+        EUR @Model.CurrentPrice.ToString("0.00") @if (!Model.CurrentPrice.Equals(Model.FullPrice))
+        {
+            <br />
+
+            <s>
+                EUR @Model.FullPrice.ToString("0.00")
+            </s>
+        }
+    </div>
+</section>
+
+<section class="course-lessons">
+    <h2>Lezioni (@Model.Lessons.Count) </h2>
+    @foreach (LessonViewModel lesson in Model.Lessons)
+    {
+        <hr>
+        <div class="row">
+            <div class="col-md-9 flex-md-shrink-0">
+                <a href="#">@lesson.Title</a>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <i class="fa-regular fa-clock"></i>
+                <a>@lesson.Duration.ToString()</a>
+            </div>
+        </div>
+    }
+    <hr>
+    <div class="row course-duration" >
+        <br />
+        <div class="col-md-9 d-flex align-items-center">
+            Totale
+        </div>
+        <div class="col-md-3 d-flex align-items-center">
+            <i class="fa-regular fa-clock"></i>
+            <time>@Model.TotalCourseDuration.ToString("m'min 's'sec'")</time>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,47 @@
+﻿@model List<CourseViewModel>
+<h1>Catalogo dei corsi</h1>
+@foreach(CourseViewModel course in Model)
+{
+
+<div class="row">
+    <div class="col-md-1">
+        <img src="@course.ImagePath" width="100" />
+    </div>
+    <div class="col-md-5">
+        <h2>@course.Title</h2>
+        <author>di @course.Author</author>
+    </div>
+    <div class="Col-md-2 rating" title="@course.Rating">
+            @for (int i = 1; i <5; i ++)
+            {
+                if (course.Rating >=i)
+                {
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                }
+                else if (course.Rating > i -1)
+                {
+                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                }
+                else
+                {
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                }
+            }
+    </div>
+    <div class="col-md-2">
+            EUR @course.CurrentPrice.ToString("0.00") @if (!course.CurrentPrice.Equals(course.FullPrice))
+            {
+                <br />
+
+                <s>
+                    EUR @course.FullPrice.ToString("0.00")
+                </s>
+            }
+        </div>
+    <div class="Col-md-2">
+        <a class="btn btn-outline-primary" asp-action="Detail" asp-route-id="@course.Id">Dettaglio</a>
+    </div>
+    <p></p>
+    <hr />
+</div>
+}
